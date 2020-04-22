@@ -1,0 +1,35 @@
+service: desiredstate_cleanup
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 128
+  timeout: 10
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-west-2'}
+  stackName: desiredstate-cleanup-stack
+  role: 'arn:aws:iam::878341639176:role/LambdaIOTRole'
+  
+functions:
+  homeautomtion:
+    handler: handler.handler
+    name: desiredstate_cleanup
+    description: cleans desired state
+    events:
+    - iot:
+        name: 'Desiredstatecleanup'
+        sql: "select state.reported, topic(3) as topic from '$aws/things/+/shadow/update/accepted' where shadow.state.desired <> NULL"
+        description: 'desired state cleaning'
+    - cloudwatchlog: '/aws/lambda/desiredstate_cleanup'
+
+package:
+  exclude:
+    - .eslintrc.yml
+    - .gitignore
+    - .git/**
+    - .vscode/**
+    - test/**
+    - coverage/**
+    - package-lock.json
+    - README.md
+    - local.js

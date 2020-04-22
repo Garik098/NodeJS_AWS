@@ -1,0 +1,20 @@
+{
+  "name": "device_cleanup",
+  "version": "1.0.0",
+  "description": "Device state Cleanup",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "flat": "^5.0.0"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "aws-sdk": "^2.659.0",
+    "chai": "^4.2.0",
+    "flat": "^5.0.0",
+    "mocha": "^7.1.1"
+  }
+}
